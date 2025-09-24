@@ -1,0 +1,170 @@
+{
+  "name": "standardized-nodejs-template",
+  "version": "1.0.0",
+  "description": "Standardized Node.js project template with Express, authentication, and best practices",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "mocha tests/**/*.test.js --recursive --exit",
+    "test:watch": "npm test -- --watch",
+    "test:coverage": "nyc npm test",
+    "lint": "eslint src/ tests/",
+    "lint:fix": "eslint src/ tests/ --fix",
+    "format": "prettier --write src/ tests/",
+    "format:check": "prettier --check src/ tests/",
+    "build": "npm run lint && npm test",
+    "docker:build": "docker build -t nodejs-template .",
+    "docker:run": "docker run -p 3000:3000 nodejs-template",
+    "prepare": "if [ \"$CI\" != \"true\" ] && [ \"$NODE_ENV\" != \"production\" ]; then husky install; fi",
+    "commit": "git-cz",
+    "release": "standard-version",
+    "release:patch": "npm run release -- --release-as patch",
+    "release:minor": "npm run release -- --release-as minor",
+    "release:major": "npm run release -- --release-as major",
+    "validate": "npm run lint && npm run format:check && npm test"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "api",
+    "template",
+    "authentication",
+    "mongodb",
+    "jwt",
+    "vcs",
+    "git-hooks",
+    "conventional-commits"
+  ],
+  "author": "Wasim S Creator",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.8.1",
+    "express-validator": "^7.0.1",
+    "helmet": "^7.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.5.0",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.4",
+    "winston": "^3.10.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
+    "@types/node": "^20.5.0",
+    "chai": "^4.3.8",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.48.0",
+    "husky": "^8.0.3",
+    "is-ci": "^3.0.1",
+    "lint-staged": "^14.0.1",
+    "mocha": "^10.8.2",
+    "nodemon": "^3.0.1",
+    "nyc": "^15.1.0",
+    "prettier": "^3.0.2",
+    "standard-version": "^9.5.0",
+    "supertest": "^6.3.3"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ],
+    "*.js": [
+      "npm test -- --findRelatedTests --passWithNoTests"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "rules": {
+      "type-enum": [
+        2,
+        "always",
+        [
+          "feat",
+          "fix",
+          "docs",
+          "style",
+          "refactor",
+          "perf",
+          "test",
+          "build",
+          "ci",
+          "chore",
+          "revert"
+        ]
+      ],
+      "subject-max-length": [
+        2,
+        "always",
+        72
+      ],
+      "subject-case": [
+        2,
+        "always",
+        "lower-case"
+      ],
+      "subject-empty": [
+        2,
+        "never"
+      ],
+      "type-empty": [
+        2,
+        "never"
+      ]
+    }
+  },
+  "standard-version": {
+    "releaseCommitMessageFormat": "chore(release): {{currentTag}}",
+    "scripts": {
+      "prebump": "npm run validate",
+      "precommit": "git add CHANGELOG.md"
+    }
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "tests/**",
+      "coverage/**",
+      "node_modules/**"
+    ],
+    "reporter": [
+      "text",
+      "lcov",
+      "html"
+    ],
+    "check-coverage": true,
+    "lines": 80,
+    "functions": 85,
+    "branches": 75
+  }
+}
