@@ -1,0 +1,156 @@
+name: 📄 User Story
+description: Create a new user story for sprint planning
+title: "[STORY] "
+labels: ["user-story", "needs-triage"]
+assignees:
+  - lraunakl
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## User Story Template
+        A user story describes a feature from the end user's perspective. Follow the format: "As a [user type], I want [functionality] so that [benefit]."
+        
+  - type: textarea
+    id: user-story
+    attributes:
+      label: User Story
+      description: Write your user story in the standard format
+      placeholder: |
+        **As a** [type of user]
+        **I want** [some goal/functionality]
+        **So that** [some reason/benefit]
+        
+        Example:
+        As a customer, I want to add items to my shopping cart so that I can purchase multiple products in a single transaction.
+      render: markdown
+    validations:
+      required: true
+      
+  - type: input
+    id: epic-link
+    attributes:
+      label: Related Epic
+      description: Link to the epic this story belongs to (issue number)
+      placeholder: "#123"
+      
+  - type: dropdown
+    id: story-points
+    attributes:
+      label: Story Points
+      description: Estimated effort using Fibonacci sequence (1-8 points for stories)
+      options:
+        - "1 (Trivial - <2 hours)"
+        - "2 (Small - ~4 hours)"
+        - "3 (Medium - ~1 day)"
+        - "5 (Large - ~2-3 days)"
+        - "8 (Very Large - ~1 week)"
+        - "13+ (Too Large - Break Down)"
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: Story priority within the sprint
+      options:
+        - Critical
+        - High
+        - Medium
+        - Low
+    validations:
+      required: true
+      
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Specific, testable conditions that must be met
+      placeholder: |
+        **Given** [context]
+        **When** [action]
+        **Then** [outcome]
+        
+        Example:
+        - [ ] Given I am on the product page
+        - [ ] When I click "Add to Cart" button
+        - [ ] Then the item is added to my cart
+        - [ ] And the cart count increases by 1
+        - [ ] And I see a success notification
+      render: markdown
+    validations:
+      required: true
+      
+  - type: textarea
+    id: technical-tasks
+    attributes:
+      label: Technical Tasks
+      description: Development tasks needed to implement this story
+      placeholder: |
+        **Frontend:**
+        - [ ] Create add-to-cart component
+        - [ ] Implement cart state management
+        - [ ] Add success notification
+        
+        **Backend:**
+        - [ ] Create cart API endpoints
+        - [ ] Implement cart data model
+        - [ ] Add cart validation logic
+        
+        **Testing:**
+        - [ ] Unit tests for components
+        - [ ] Integration tests for API
+        - [ ] E2E tests for user flow
+      render: markdown
+      
+  - type: dropdown
+    id: sprint
+    attributes:
+      label: Target Sprint
+      description: Which sprint should this story be completed in?
+      options:
+        - Sprint 1
+        - Sprint 2
+        - Sprint 3
+        - Sprint 4
+        - Sprint 5
+        - Sprint 6
+        - Backlog
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: definition-of-done
+    attributes:
+      label: Definition of Done
+      description: Check all that apply for this story
+      options:
+        - label: Code is written and follows project standards
+        - label: Unit tests written and passing (>= 80% coverage)
+        - label: Integration tests written and passing
+        - label: Code reviewed and approved
+        - label: Manual testing completed
+        - label: Acceptance criteria verified
+        - label: Documentation updated (if needed)
+        - label: Deployed to development environment
+        - label: Ready for QA testing
+        
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes
+      description: Any special considerations, dependencies, or context
+      placeholder: |
+        **Dependencies:**
+        - Requires completion of story #X
+        - Needs design approval
+        
+        **Risks:**
+        - Complex integration with payment system
+        - Performance impact on large catalogs
+        
+        **Resources:**
+        - API documentation: [link]
+        - Design mockups: [link]
+      render: markdown
